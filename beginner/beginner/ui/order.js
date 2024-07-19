@@ -58,7 +58,8 @@ function renderOrders(ordersJson) {
 /*
     run function handleRegisterOrder
     event.preventDefault(); is use to make the browser does not reload or refresh.
-    
+    const form = event.target.form; is gets the element's event value sent from the form.
+    const formData = new FormData(form);
 */
 async function handleRegisterOrder(event) {
     event.preventDefault();
