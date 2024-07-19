@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="order-list"></div>
+        <form>
+            <input name="itemId" type="number" />
+            <input name="name" />
+            <input name="amount" type="number" />
+            <input name="orderStatus" />
+            <input name="orderDate" type="date" />
+            <button type="submit" onclick="handleRegisterOrder(event)">
+                register new Order
+            </button>
+        </form>
+        <!-- Order modal -->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span
+                    class="close"
+                    onclick="document.getElementById('myModal').style.display='none'"
+                    >&times;</span
+                >
+                <div id="order-modal-component"></div>
+            </div>
+        </div>
+    </body>
+    <script src="./order.js"></script>
+    <style>
+    /* Style the modal background */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+    }
+
+    .modal-content form input {
+        display: block;
+    }
+
+    /* Style the modal content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
+    </style>
+</html>

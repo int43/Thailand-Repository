@@ -1,0 +1,36 @@
+plugins {
+	id 'java'
+	id 'idea'
+	id 'org.springframework.boot' version '2.6.3'
+	id 'io.spring.dependency-management' version '1.1.0'
+	id "org.flywaydb.flyway" version "7.2.1"
+}
+
+group = 'com.excellence'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation("org.flywaydb:flyway-core:7.15.0")
+
+	implementation('com.google.code.gson:gson:2.10.1')
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'org.postgresql:postgresql:42.5.4'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+//tasks.named('bootBuildImage') {
+//	builder = 'paketobuildpacks/builder-jammy-base:latest'
+//}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
