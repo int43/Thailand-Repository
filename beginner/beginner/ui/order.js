@@ -26,6 +26,7 @@ async function fetchOrders() {
     innerHTML of orders created table include table head(<th>) and each order.
     for each row column (<tr>,<td>) show the data of orders and have button click Edit and Delete.
     orders.appendChild(orderDiv); is the order that adding will show with the order before.
+    .appendChild() is the method that make an element to another element like new child element/data to the parent element.
 */
 function renderOrders(ordersJson) {
     const orders = document.getElementById("order-list");
@@ -59,7 +60,8 @@ function renderOrders(ordersJson) {
     run function handleRegisterOrder
     event.preventDefault(); is use to make the browser does not reload or refresh.
     const form = event.target.form; is gets the element's event value sent from the form.
-    const formData = new FormData(form);
+    const formData = new FormData(form); is the new data that fill in the form.
+    const order = {} is get data into the form (itemId name amount orderStatus orderDate).
 */
 async function handleRegisterOrder(event) {
     event.preventDefault();
@@ -73,6 +75,10 @@ async function handleRegisterOrder(event) {
         orderDate: formData.get("orderDate"),
     };
 
+/*
+    wait loading "http://localhost:8080/orders"
+    method: "POST" ,headers: ,body:  ......
+*/
     const response = await fetch("http://localhost:8080/orders", {
         method: "POST",
         headers: {
