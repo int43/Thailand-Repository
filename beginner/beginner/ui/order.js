@@ -1,11 +1,12 @@
 /* 
     addEventListener executes to set event "DOMContentLoaded" and set function fetchOrders().
-    DOM is connecting HTML and JavaScript.
+    DOM or Document Object Model is connecting HTML and JavaScript.
 */
 document.addEventListener("DOMContentLoaded", fetchOrders());
 
 /*  
-    run function fetchorders that wait the adding orders from "http://localhost:8080/orders".
+    asyn is the command that can executed the next line immediately.
+    run function fetchorders() that wait the adding orders from "http://localhost:8080/orders".
     If the order not ok it will get error message "Could not fetch orders".
     call orders.json and the console display ordersJson.
     run the function renderOrders(ordersJson);.
@@ -57,7 +58,7 @@ function renderOrders(ordersJson) {
 }
 
 /*
-    run function handleRegisterOrder
+    run function handleRegisterOrder(event)
     event.preventDefault(); is use to make the browser does not reload or refresh.
     const form = event.target.form; is gets the element's event value sent from the form.
     const formData = new FormData(form); is the new data that fill in the form.
@@ -77,7 +78,15 @@ async function handleRegisterOrder(event) {
 
 /*
     wait loading "http://localhost:8080/orders"
-    method: "POST" ,headers: ,body:  ......
+    method: "POST" is Used for creating new data by sending data through the body{}.
+    headers: {} is the section that specifies information and rules for connection. 
+    "Content-Type": "application/json" is determined the browser reads the data in JSON format (if not, the browser will view it as HTML, resulting in data retrieval errors).
+    JSON or Java Script Object Notation is a format for exchanging computer data that allows JavaScript able to exchange information with the Server. The information is in plain text format.
+    body:  is the part that specifies the information we want to send to the destination.
+    JSON.stringify(order) is converts data of orders into string format.
+    If response not ok. It will wait the response.json() to show the error in console.error(show red tab)
+    return; is stop execute the function.
+    fetchOrders(); is set to use the function fetchOrders();.
 */
     const response = await fetch("http://localhost:8080/orders", {
         method: "POST",
@@ -95,6 +104,13 @@ async function handleRegisterOrder(event) {
     fetchOrders();
 }
 
+/*
+    run function fetchOrder(id).
+    response waiting the fetch(`http://localhost:8080/orders/${id}`) by using id.
+    If response not ok get the error message "Could not fetch order".
+    waiting to return the value of response.json().
+    response.json()=change the data that get from json to Javascript object.
+*/
 async function fetchOrder(id) {
     const response = await fetch(`http://localhost:8080/orders/${id}`);
     if (!response.ok) {
@@ -103,6 +119,10 @@ async function fetchOrder(id) {
     return await response.json();
 }
 
+/*
+    run function renderOrder(id)
+
+*/
 async function renderOrder(id) {
     const order = await fetchOrder(id);
     const orderDiv = document.getElementById("order-modal-component");
