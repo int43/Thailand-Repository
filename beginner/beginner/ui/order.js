@@ -26,6 +26,7 @@ async function fetchOrders() {
     If not the orders it will get error message "Could not find orders element".
     innerHTML of orderDiv created table include table head(<th>) and each order.
     for each row column (<tr>,<td>) show the data of orders and have button click Edit and Delete.
+    ${} is instead the value to string. 
     orders.appendChild(orderDiv); is the order that adding will show with the order before.
         .appendChild() is the method that make an element to another element like new child element/data to the parent element.
 */
