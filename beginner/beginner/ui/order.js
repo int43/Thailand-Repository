@@ -1,14 +1,15 @@
 /* 
     addEventListener executes to set event "DOMContentLoaded" and set function fetchOrders().
-    DOM is connecting HTML and JavaScript.
+    DOM or Document Object Model is connecting HTML and JavaScript.
 */
 document.addEventListener("DOMContentLoaded", fetchOrders());
 
 /*  
-    run function fetchorders that wait the adding orders from "http://localhost:8080/orders".
+    asyn is the command that can executed the next line immediately.
+    run function fetchorders() that wait the adding orders from "http://localhost:8080/orders".
     If the order not ok it will get error message "Could not fetch orders".
-    call orders.json and the console display ordersJson.
-    run the function renderOrders(ordersJson);.
+    waiting to call orders.json() and the console display ordersJson.
+    set to use the function renderOrders(ordersJson);.
 */
 async function fetchOrders() {
     const orders = await fetch("http://localhost:8080/orders");
@@ -23,9 +24,11 @@ async function fetchOrders() {
 /*
     run function renderOrders(ordersJson) that get orders from order-list.
     If not the orders it will get error message "Could not find orders element".
-    innerHTML of orders created table include table head(<th>) and each order.
+    innerHTML of orderDiv created table include table head(<th>) and each order.
     for each row column (<tr>,<td>) show the data of orders and have button click Edit and Delete.
+    ${} is instead the value to string. 
     orders.appendChild(orderDiv); is the order that adding will show with the order before.
+        .appendChild() is the method that make an element to another element like new child element/data to the parent element.
 */
 function renderOrders(ordersJson) {
     const orders = document.getElementById("order-list");
@@ -56,9 +59,11 @@ function renderOrders(ordersJson) {
 }
 
 /*
-    run function handleRegisterOrder
+    run function handleRegisterOrder(event).
     event.preventDefault(); is use to make the browser does not reload or refresh.
-    
+    const form = event.target.form; is gets the element's event value sent from the form.
+    const formData = new FormData(form); is the new data that fill in the form.
+    const order = {} is add the new data into the form (itemId name amount orderStatus orderDate).
 */
 async function handleRegisterOrder(event) {
     event.preventDefault();
@@ -72,6 +77,18 @@ async function handleRegisterOrder(event) {
         orderDate: formData.get("orderDate"),
     };
 
+/*
+    decalre response to wait loading fetch to get value from "http://localhost:8080/orders".
+    method: "POST" is used for creating new data by sending data through the body{} and operation may perform any type of processing. Almost use for create the new data.
+    headers: {} is the section that specifies information and rules for connection. 
+        "Content-Type": "application/json" is determined the browser reads the data in JSON format (if not, the browser will view it as HTML, resulting in data retrieval errors).
+        JSON or Java Script Object Notation is a format for exchanging computer data that allows JavaScript able to exchange information with the Server. The information is in plain text format.
+    body:  is the part that specifies the information we want to send to the destination.
+        JSON.stringify(order) is converts data of orders into string format.
+    If response not ok. It will wait the response.json() to show the error in console.error(show red tab)
+    return; is stop execute the function.
+    fetchOrders(); is set to use the function fetchOrders();.
+*/
     const response = await fetch("http://localhost:8080/orders", {
         method: "POST",
         headers: {
@@ -88,6 +105,13 @@ async function handleRegisterOrder(event) {
     fetchOrders();
 }
 
+/*
+    run function fetchOrder(id).
+    declare response waiting the fetch(`http://localhost:8080/orders/${id}`) to get value from url by using id.
+    If response not ok get the error message "Could not fetch order".
+    waiting to return the value of response.json().
+        response.json()=change the data that get from json to Javascript object.
+*/
 async function fetchOrder(id) {
     const response = await fetch(`http://localhost:8080/orders/${id}`);
     if (!response.ok) {
@@ -96,6 +120,14 @@ async function fetchOrder(id) {
     return await response.json();
 }
 
+/*
+    run function renderOrder(id).
+    declare order waiting the fetchOrder(id).
+    declare orderDiv that get orders from "order-modal-component".
+    innerHTML of orderDiv created form from click the Edit button. It includes orderid, Item ID, Name, Amount, orderStatus, orderDate, and button "Update" the order.
+    In the page of Edit has to modify Item Item ID, Name, Amount, orderStatus,and orderDate to the value that you want.
+    The Edit page show in display style block of get value in id=myModal.
+*/
 async function renderOrder(id) {
     const order = await fetchOrder(id);
     const orderDiv = document.getElementById("order-modal-component");
@@ -118,6 +150,13 @@ async function renderOrder(id) {
     document.getElementById("myModal").style.display = "block";
 }
 
+/*
+    run function handleUpdateOrder(event, id).
+    event.preventDefault(); is use to make the browser does not reload or refresh.
+    const form = event.target.form; is gets the element's event value sent from the form.
+    const formData = new FormData(form); is the new data that fill in the form.
+    const order = {} is update the new data into the form (name itemId amount orderStatus orderDate).
+*/
 async function handleUpdateOrder(event, id) {
     event.preventDefault();
     const form = event.target.form;
@@ -130,6 +169,17 @@ async function handleUpdateOrder(event, id) {
         orderDate: formData.get("orderDate"),
     };
 
+/*
+    decalre response to wait loading fetch to get value from `http://localhost:8080/orders/${id}`.
+    method: "PUT" is used for create or update new data by sending data through the body{} and restricted to create or update operations. Alomost use for update the data in the server.
+    headers: {} is the section that specifies information and rules for connection. 
+        "Content-Type": "application/json" is determined the browser reads the data in JSON format (if not, the browser will view it as HTML, resulting in data retrieval errors).
+        JSON or Java Script Object Notation is a format for exchanging computer data that allows JavaScript able to exchange information with the Server. The information is in plain text format.
+    body:  is the part that specifies the information we want to send to the destination.
+        JSON.stringify(order) is converts data of orders into string format.
+    If response not ok. declare result to wait the response.json() to show the error message in (result.message);
+    else response ok waiting the fetchOrders() when update the data in id=myModal the display style is none. 
+*/
     const response = await fetch(`http://localhost:8080/orders/${id}`, {
         method: "PUT",
         headers: {
@@ -147,6 +197,13 @@ async function handleUpdateOrder(event, id) {
     }
 }
 
+/*
+    run function handleDeleteOrder(id).
+    decalre response to wait loading fetch to get value from `http://localhost:8080/orders/${id}`.
+    method: "DELETE" is use for delete the data.
+    If response not ok get the error message "Could not delete order".
+    waiting to fetchOrders().
+*/
 async function handleDeleteOrder(id) {
     const response = await fetch(`http://localhost:8080/orders/${id}`, {
         method: "DELETE",
