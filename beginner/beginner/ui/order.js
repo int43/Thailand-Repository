@@ -121,6 +121,7 @@ async function fetchOrder(id) {
 }
 
 /*
+    async and await are used in pair by put async before a function and put await inside the async function use for waiting the function behind the await that executed and wait for resolve. 
     run function renderOrder(id).
     declare order waiting the fetchOrder(id).
     declare orderDiv that get orders from "order-modal-component".
@@ -154,8 +155,8 @@ async function renderOrder(id) {
     run function handleUpdateOrder(event, id).
     event.preventDefault(); is use to make the browser does not reload or refresh.
     const form = event.target.form; is gets the element's event value sent from the form.
-    const formData = new FormData(form); is the new data that fill in the form.
-    const order = {} is update the new data into the form (name itemId amount orderStatus orderDate).
+    const formData = new FormData(form); is converts values(elements) inside of variable called form to new type data like pairs of keyword and value and puts the converted new type data into const formData.
+    const order = {} is gets new data which got from modal's form element into the variable "order" with a certain style which is called JSON as declared in "headers:{"Content-Type": "application/json"}".
 */
 async function handleUpdateOrder(event, id) {
     event.preventDefault();
@@ -179,6 +180,7 @@ async function handleUpdateOrder(event, id) {
         JSON.stringify(order) is converts data of orders into string format.
     If response not ok. declare result to wait the response.json() to show the error message in (result.message);
     else response ok waiting the fetchOrders() when update the data in id=myModal the display style is none. 
+        --> When you click Edit button, modal shows up in web page first. After entered value in modal, if you click Update button, the process for updating is executed and modal fades out.
 */
     const response = await fetch(`http://localhost:8080/orders/${id}`, {
         method: "PUT",
