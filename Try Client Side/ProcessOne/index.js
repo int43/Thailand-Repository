@@ -1,3 +1,5 @@
 function message(){
-    document.getElementById("input-element");
+    let input = document.getElementById("inputname");
+    let output = document.getElementById("outputname");
+    output.innerHTML = input.value;
 }

@@ -6,14 +6,18 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="input-element"></div>
     <h1 align="center"> Exercise show input element </h1>
     <form align="center">
         <div>
             <label for="name">Name</label>
-            <input type="text" name="name" placeholder="Enter your name">
+            <input type="text" name="name" placeholder="Enter your name" id="inputname">
         </div>
-        <button onclick="message();" type="submit">submit</button>
+        <br>
+        <button onclick="message();" type="button">submit</button>
+        <br><br><br>
+        <div>
+            <label id ="outputname"></label>
+        </div>
     </form>
 </body>
 <script src="./index.js"></script>
