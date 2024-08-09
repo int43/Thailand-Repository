@@ -46,16 +46,18 @@ public class OrderController {
         OrdersResponse response = new OrdersResponse(orders);
         return response;
     }
+
     /*
     @PostMapping(produces = "application/json") is an annotation in the Spring Framework that is used to define a method handler to receive POST requests and produce responses in json format.
         produces = "application/json" means that the server sends a value back in the form of JSON, which is a data format used for structured data exchange. 
         Structured data exchange refers to the exchange of data that is managed in an orderly format to make it easier to use. Typically used in computer systems and databases for efficient and accurate data communication.
     @ResponseStatus(HttpStatus.CREATED): This command is used to determine the HTTP response status to created.
         HttpStatus.CREATED means that the the creation of a new resource is successful.
-    declare method "create" that get parameter "request"
     public void create(@RequestBody ExampleOrderRequest request) declare method "create" that doesn't return any value (void) and takes one parameter (request). 
-        The parameter is an object of type "ExampleOrderRequest" and is annotated with "@RequestBody", which this method is likely used in Spring Framework, to handle HTTP POST requests where the body of the request is mapped to the "ExampleOrderRequest" object.
-        This method would be responsible for creating something, possibly an order, based on the data provided in the request body. Which order data received in JSON format.
+        The parameter is an object of type "ExampleOrderRequest" and is annotated with "@RequestBody", which this method used in Spring Framework, to handle HTTP POST requests change json where the request is specify to the "ExampleOrderRequest" object.
+    ValidateResult validate = request.validate(); is the command that after request.validate() is called, it returns a value "validate" which tells the result of checking the data is correct or not that get from request.
+    If the validation not ok, it throws an exception with a BAD_REQUEST status, which tell the server can't process the request due to a client error.The validate.errorMessage() provides the specific reason for the error. 
+    If the validation is successful, it proceeds to create an order in service, request.toExampleOrder(): is convert the request data into a format suitable for creating an order.
     */
     @PostMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
@@ -68,6 +70,16 @@ public class OrderController {
         service.createOrder(request.toExampleOrder());
     }
 
+    /*
+    @GetMapping(): is an annotation in Spring Framework used to handle HTTP GET requests to specific handler methods in a controller class.
+        value = "/{orderId}"  specifies the URL pattern that the method will handle. The {orderId} is a path variable, meaning it can be replaced with any order ID when making a request.
+        produces = "application/json" part indicates that this method will produce a response in JSON format.
+    @ResponseStatus(HttpStatus.OK): This command is used to determine the HTTP status to be returned to the API caller.
+        HttpStatus.OK means that the request was successful and the data has been sent back.
+    declares a public method named get that returns an object of type ExampleOrder.
+        @PathVariable int orderId: use the input parameter "orderId" get data to a URL template variable.
+    return the value of orderId by use method getOrderById of service.
+    */
     @GetMapping(value = "/{orderId}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public ExampleOrder get(@PathVariable int orderId) {
@@ -77,7 +89,7 @@ public class OrderController {
     @PutMapping(value = "/{orderId}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable int orderId,@RequestBody ExampleOrderRequest request) {
-        ValidateResult validate = request.validate();
+        ValidateResult validate = request.validate(); 
         if (!validate.ok()) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, validate.errorMessage());
