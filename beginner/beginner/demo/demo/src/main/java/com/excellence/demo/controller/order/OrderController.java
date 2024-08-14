@@ -122,7 +122,8 @@ public class OrderController {
     }
 
     /*
-    Class "OrderController" used to create new instances of this class. When you create a new "OrderController", you must give it an "OrderService" object. This service is then stored in the "service" field of the "OrderController", so it can be used later in other methods of the class.
+    declare class "OrderController" used to create new instances of this class use parameter "service" of "OrderService".
+    this.service = service; assign the value parameter of "service" to variable "service" of class "OrderController".
     */
     public OrderController(OrderService service) {
         this.service = service;
