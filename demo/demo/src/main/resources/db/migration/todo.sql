@@ -1,0 +1,9 @@
+CREATE TABLE todo
+(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id varchar(255) NOT NULL,
+    Content varchar(2550) NULL,
+    due_date date NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+);
