@@ -2,7 +2,9 @@ package com.example.demo.datasource;
 
 import com.example.demo.model.UsersModel;
 
-//สร้าง object ใหม่โดยเอา input จาก UsersModel เพื่อนำค่าไปใช้ต่อ
+/*
+สร้าง object ใหม่โดยเอา input จาก UsersModel 
+*/
 public class UsersDatasourceEntity {
     final int id;
     final String username;

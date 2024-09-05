@@ -15,6 +15,7 @@ import static java.util.stream.Collectors.toList;
     @Repository เป็นคลาสที่จัดการกับการเข้าถึงข้อมูล
     @Autowired  คือการบอก Spring ให้ช่วยหาสิ่งที่เราต้องการมาใส่ให้เราอัตโนมัติ (เช่น ถ้าเรามีคลาส A ที่ต้องการใช้คลาส B เราแค่ใส่ @Autowired ไว้ที่คลาส A แล้ว Spring จะเอาคลาส B มาใส่ให้เอง)
     @Override   คือการบอกว่าเรากำลังเขียนฟังก์ชันที่มีอยู่แล้วในคลาสแม่หรืออินเตอร์เฟซใหม่ (ช่วยให้โค้ดอ่านง่ายขึ้นและช่วยป้องกันข้อผิดพลาดในการพิมพ์ชื่อเมธอดผิด)
+    ดำเนินการฐานข้อมูล users เช่น การดึงข้อมูล all users และ new user
 */
 @Repository
 public class UsersDatasource implements UsersRepository {

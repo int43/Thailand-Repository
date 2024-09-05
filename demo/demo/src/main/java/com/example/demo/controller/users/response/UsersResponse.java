@@ -4,6 +4,9 @@ import com.example.demo.model.UsersModel;
 
 import java.util.List;
 
+/*
+สร้าง list ของ UsersModel แสดงข้อมูล users
+*/
 public class UsersResponse {
     public List<UsersModel> users;
 

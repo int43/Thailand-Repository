@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
-//แสดง ID user password
+/*
+สร้างและจัดการข้อมูลเกี่ยวกับ ID user password
+*/
 public class UsersModel {
     public final int id;
     public final String username;
