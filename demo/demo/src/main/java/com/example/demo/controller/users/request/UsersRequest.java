@@ -7,6 +7,7 @@ import com.example.demo.model.ValidateResult;
 จัดการข้อมูล user เมื่อลงทะเบียนหรือเข้าสู่ระบบโดยตรวจสอบ input
 */
 public class UsersRequest {
+    public final int user_id;
     public final String username;
     public final String password;
 
@@ -18,14 +19,15 @@ public class UsersRequest {
     }
 
     public UsersModel toUsersModel() {
-        return toUsersModel(0);
+        return toUsersModel(0, 0);
     }
 
-    public UsersModel toUsersModel(int id) {
-        return new UsersModel(id, username, password);
+    public UsersModel toUsersModel(int id,int user_id) {
+        return new UsersModel(id, user_id, username, password);
     }
 
     public UsersRequest() {
+        this.user_id  = 0;
         this.username = null;
         this.password = null;
     }

@@ -7,19 +7,22 @@ import com.example.demo.model.UsersModel;
 */
 public class UsersDatasourceEntity {
     final int id;
+    final int user_id;
     final String username;
     final String password;
 
     public static UsersDatasourceEntity of(UsersModel user) {
         return new UsersDatasourceEntity(
             user.id(),
+            user.user_id(),
             user.username(),
             user.password()
         );
     }
 
-    public UsersDatasourceEntity(int id, String username, String password) {
+    public UsersDatasourceEntity(int id, int user_id,String username, String password) {
         this.id = id;
+        this.user_id  = user_id;
         this.username = username;
         this.password = password;
     }

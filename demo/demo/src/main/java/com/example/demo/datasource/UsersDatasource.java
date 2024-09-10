@@ -34,9 +34,10 @@ public class UsersDatasource implements UsersRepository {
     @Override   //เพิ่มข้อมูลใหม่
     public void insertUser(UsersModel user) {
         UsersDatasourceEntity entity = UsersDatasourceEntity.of(user);
-        String sql = "INSERT INTO users(username, password) VALUES (?, ?)";
+        String sql = "INSERT INTO users(user_id, username, password) VALUES (?, ?, ?)";
         jdbcTemplate.update(
                 sql,
+                entity.user_id,
                 entity.username,
                 entity.password);
     }
@@ -45,6 +46,7 @@ public class UsersDatasource implements UsersRepository {
     private UsersModel toModel(Map<String, Object> record) {
         return new UsersModel(
                 (int) record.get("id"),
+                (int) record.get("user_id"),
                 (String) record.get("username"),
                 (String) record.get("password")
         );
