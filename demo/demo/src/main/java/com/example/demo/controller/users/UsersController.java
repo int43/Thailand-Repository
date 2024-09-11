@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("/users"): ตั้งค่า URL พื้นฐานสําหรับ request ทั้งหมดที่จัดการโดยคอนโทรลเลอร์นี้เป็น /users
 */
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/Users")
 public class UsersController {
     private final UsersService service;
 
@@ -35,7 +35,7 @@ public class UsersController {
     }
 
     //จัดการ Post request เพื่อสร้าง user ใหม่ ใช้ json ตรวจสอบความถูกต้อง ถ้าถูกจะสร้าง user ใหม่
-    @PostMapping(produces = "application/json") //เกิดจาก Post request และสร้าง json response
+    @PostMapping(value="/register", produces = "application/json") //เกิดจาก Post request และสร้าง json response
     @ResponseStatus(HttpStatus.CREATED)         //ถ้าสร้าง user สำเร็จจะแสดง HTTP status created
     public void create(@RequestBody UsersRequest request) {     //แปลง json เป็น UsersRequest
         ValidateResult validate = request.validate();

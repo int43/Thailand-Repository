@@ -4,10 +4,10 @@
 For further reference, please consider the following sections:
 
 * [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.2.8/gradle-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.2.8/gradle-plugin/reference/html/#build-image)
-* [Spring Security](https://docs.spring.io/spring-boot/docs/3.2.8/reference/htmlsingle/index.html#web.security)
-* [JDBC API](https://docs.spring.io/spring-boot/docs/3.2.8/reference/htmlsingle/index.html#data.sql)
+* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.2.9/gradle-plugin/reference/html/)
+* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.2.9/gradle-plugin/reference/html/#build-image)
+* [Spring Security](https://docs.spring.io/spring-boot/docs/3.2.9/reference/htmlsingle/index.html#web.security)
+* [JDBC API](https://docs.spring.io/spring-boot/docs/3.2.9/reference/htmlsingle/index.html#data.sql)
 
 ### Guides
 The following guides illustrate how to use some features concretely:
