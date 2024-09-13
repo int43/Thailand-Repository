@@ -11,7 +11,7 @@ body{
     position: fixed; top: 20%; right: 40%;
 }
 form{
-    height: 480px;
+    height: 600px;
     border: 1px solid white;
     border-radius: 20px;
     text-align: center;
@@ -20,8 +20,8 @@ form{
     margin: 8%;
 }
 header{
-    margin-top: 60px;
-    margin-bottom: 30px;
+    margin-top: 30px;
+    margin-bottom: 10px;
 }
 main{
     margin-top: 5%;
@@ -42,6 +42,7 @@ main{
         background-color: #3366FF;
         border-radius: 3px;
         padding: 13px 40px;
+        cursor: pointer;
     }
 }
 

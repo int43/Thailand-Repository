@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("/users"): ตั้งค่า URL พื้นฐานสําหรับ request ทั้งหมดที่จัดการโดยคอนโทรลเลอร์นี้เป็น /users
 */
 @RestController
-@RequestMapping("/Users")
+@RequestMapping("/users")
 public class UsersController {
     private final UsersService service;
 

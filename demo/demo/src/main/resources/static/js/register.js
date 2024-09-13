@@ -8,7 +8,7 @@ async function handleRegisterUser(event) {
     };
     console.log(user);
     //ส่ง POST request ไปยัง server เพื่อสร้าง user ใหม่
-    const response = await fetch("http://localhost:8080/Users/register", {
+    const response = await fetch("http://localhost:8080/users/register", {
         method: "POST",     //ส่งข้อมูลสร้าง user
         headers: {
             "Content-Type": "application/json",
@@ -20,4 +20,7 @@ async function handleRegisterUser(event) {
         console.error(error);
         return;
     }
+    setTimeout(function(){
+        location.href = "./login.html"
+    }, 1050)
 }
