@@ -18,14 +18,14 @@
             <h2>Sign In</h2>
             <div>
                 <label for="Username"><img src="https://cdn-icons-png.flaticon.com/128/3177/3177440.png" width="40px" height="40px"></label>
-                <input name="username" type="text" size="23%" style="height: 23px;" placeholder="&nbsp;Username" required>
+                <input id="username" name="username" type="text" size="23%" style="height: 23px;" placeholder="&nbsp;Username" required>
             </div>
             <div>
                 <label for="Password"><img src="https://cdn-icons-png.flaticon.com/128/10484/10484605.png" width="40px" height="40px"></label>
-                <input name="password" type="password" size="23%" style="height: 23px;" placeholder="&nbsp;Password" required>
+                <input id="password" name="password" type="password" size="23%" style="height: 23px;" placeholder="&nbsp;Password" required>
             </div>
             <br>
-            <button class="loginbtn" type="submit" onclick="LoginUser()">Log In</button>
+            <button class="loginbtn" onclick="LoginUser(event)">Log In</button>
         </main>
         <footer>
             <br>
@@ -33,5 +33,5 @@
         </footer>
     </form>
 </body>
-<script src="js/login.js"></script>
+<script src="js/signin.js"></script>
 </html>

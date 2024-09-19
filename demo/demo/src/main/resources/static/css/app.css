@@ -1,4 +1,4 @@
-/* ヘッダーのスタイル */
+/* รูปแบบส่วนหัว */
 header {
   background-color: #628e95;
   color: #fff;
@@ -67,7 +67,7 @@ header > button {
   right: 30px;
 }
 
-/* ログアウトボタンのスタイル */
+/* ปุ่มออกจากระบบ */
 button {
     background-color: #007bff;
     color: #fff;
@@ -104,7 +104,7 @@ body {
     z-index: calc(infinity);
   }
   
-  /*.modal .inner {
+  .modal .inner {
     position: relative;
     width: 100%;
     height: 100%;
@@ -128,14 +128,15 @@ body {
     flex-direction: column;
     color: #333;
     font-size: 1.5rem;
-    animation: fadeInAnimation 200ms ease-out;
-  }*/
-  @keyframes fadeInAnimation {
+    animation: fadeInAnimation 200ms ease-out;  /* กำหนดเวลาเล่น Animation */
+  }
+  /* Animation จะค่อยๆ เปลี่ยนความโปร่งใสจาก 0 เป็น 1 ทำให้องค์ประกอบค่อยๆ ปรากฏขึ้น */
+  @keyframes fadeInAnimation {    /* @keyframes ใน CSS ใช้สำหรับสร้าง Animation โดยกำหนดการเปลี่ยนแปลงรูปแบบขององค์ประกอบในช่วงเวลาต่างๆ ของ Animation */
     from {
-      opacity: 0;
+      opacity: 0;   /*โปร่งใสทั้งหมด*/
     }
     to {
-      opacity: 1;
+      opacity: 1;   /*ทึบแสงทั้งหมด*/
     }
   }
   .modal-close {
@@ -154,7 +155,6 @@ body {
     border: none;
     outline: none;
     background-color: transparent;
-    
   }
 
   .date-input {
@@ -167,7 +167,7 @@ body {
     bottom: 30px;
   }
 
-  /* ローディング画面 */
+  /* แสดงลูกเล่นหน้าเข้าสู่ TodoApplication */
 /*#loading {
     width: 100vw;
     height: 100vh;
@@ -205,26 +205,26 @@ body {
   position: relative;
 } 
 
-  .post-it {
-    position: absolute; /* チェックボタンを配置するために相対位置にする */
-    width: 200px;
-    padding: 20px;
-    background-color: #FFDAB9;
-    border-radius: 10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    cursor: grab;
-    z-index: calc(infinity);
+.post-it {
+  position: absolute; /* チェックボタンを配置するために相対位置にする */
+  width: 200px;
+  padding: 20px;
+  background-color: #FFDAB9;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: grab;
+  z-index: calc(infinity);
 }
 
 .post-it-content {
-    font-size: 18px;
-    margin-bottom: 10px;
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
 .post-it-date {
-    font-size: 14px;
-    color: #666;
-    font-style: italic;
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
 }
 input[type=checkbox] {
   display: none;
