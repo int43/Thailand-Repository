@@ -204,9 +204,9 @@ body {
  #mainField {
   position: relative;
 } 
-
+/*
 .post-it {
-  position: absolute; /* チェックボタンを配置するために相対位置にする */
+  position: absolute;
   width: 200px;
   padding: 20px;
   background-color: #FFDAB9;
@@ -234,9 +234,9 @@ input[type=checkbox] {
   cursor: pointer;
   display: inline-block;
   padding: 5px 30px;
-  position: absolute; /* 相対位置にする */
-  bottom: 28px; /* 上からの位置 */
-  right: 50px; /* 右からの位置 */
+  position: absolute; 
+  bottom: 28px; 
+  right: 50px; 
   width: auto;
 }
 .post-it-checkbox::before {
@@ -271,4 +271,4 @@ input[type=checkbox]:checked + .post-it-checkbox::before {
 }
 input[type=checkbox]:checked + .post-it-checkbox::after {
   opacity: 1;
-}
+}*/

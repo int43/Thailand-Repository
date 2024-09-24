@@ -41,14 +41,14 @@ public class TodoRequest {
         DateTimeFormatter formatupdated = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate formatterupdated = LocalDate.parse(updated_at, formatupdated);
         
-        return  TodoModel(id, userId, content, formatterdue, formattercreated, formatterupdated);
+        return new TodoModel(id, userId, content, formatterdue, formattercreated, formatterupdated);
     }
 
     public TodoRequest() {
         this.userId = null;
         this.content = null;
-        this.formatterdue_date = null;
-        this.formattercreated_at = null;
-        this.formatterupdated_at = null;
+        this.due_date = null;
+        this.created_at = null;
+        this.updated_at = null;
     }
 }

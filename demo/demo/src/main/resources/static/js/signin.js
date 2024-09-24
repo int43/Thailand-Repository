@@ -3,7 +3,7 @@ async function LoginUser(event) {
     const users = await fetch("http://localhost:8080/users");
     if (!users.ok) {
         throw new Error("Could not fetch users");
-    }    
+    } 
     const usersJson = await users.json();
     console.log(usersJson);
 

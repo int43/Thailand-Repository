@@ -13,11 +13,11 @@ import java.util.Map;
 import static java.util.stream.Collectors.toList;
 
 @Repository
-public class TodoDatasource implements TodoRepository{
+public class TodoDatasource implements TodoRepository {
     @Autowired
-    JdbcTemplate JdbcTemplate;
+    JdbcTemplate jdbcTemplate;
 
-    @Overide
+    @Override
     public List<TodoModel> getAllTodo() {
         String sql = "SELECT * FROM Todo";
         List<Map<String, Object>> records = jdbcTemplate.queryForList(sql);
@@ -26,26 +26,26 @@ public class TodoDatasource implements TodoRepository{
             .collect(toList());
     }
 
-    @Overide
+    @Override
     public void insertTodo(TodoModel todo) {
         TodoDatasourceEntity entity = TodoDatasourceEntity.of(todo);
         String sql = "INSERT INTO Todo(user_id, content, due_date, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(
             sql,
-            entity.userId,
+            entity.user_id,
             entity.content,
             entity.due_date,
             entity.created_at,
             entity.updated_at);
     }
 
-    @Overide
+    @Override
     public void updateTodo(TodoModel todo) {
         TodoDatasourceEntity entity = TodoDatasourceEntity.of(todo);
         String sql = "UPDATE Todo SET user_id = ?, content = ?, due_date = ?, created_at = ?, updated_at = ? WHERE id = ?";
         jdbcTemplate.update(
             sql,
-            entity.userId,
+            entity.user_id,
             entity.content,
             entity.due_date,
             entity.created_at,
@@ -54,7 +54,15 @@ public class TodoDatasource implements TodoRepository{
         );
     }
 
-    @Overide
+    @Override
+    public TodoModel getTodo(int id) {
+        String sql = "SELECT * FROM Todo WHERE id = ?";
+        List<Map<String, Object>> records = jdbcTemplate.queryForList(sql, id);
+        if (records.isEmpty()) return TodoModel.empty();
+        return toModel(records.get(0));
+    }
+
+    @Override
     public void deleteTodo(int id) {
         String sql = "DELETE FROM Todo WHERE id = ?";
         jdbcTemplate.update(sql, id);
@@ -74,4 +82,3 @@ public class TodoDatasource implements TodoRepository{
         );
     }
 }
-
