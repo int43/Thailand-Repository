@@ -1,25 +1,30 @@
 async function LoginUser(event) {
     event.preventDefault();
-    const users = await fetch("http://localhost:8080/users");
-    if (!users.ok) {
-        throw new Error("Could not fetch users");
-    } 
-    const usersJson = await users.json();
-    console.log(usersJson);
+    //ใช้ try catch ดัก error ง่ายขึ้น 
+    try {
+        //fetch ข้อมูล user จาก url ถ้าสำเร็จแสดงในรูป json
+        const response = await fetch("http://localhost:8080/users");
+        if (!response.ok) {
+            throw new Error("Could not fetch users");
+        }
+        const usersJson = await response.json();
 
-    const checkuser = document.getElementById("username").value;
-    console.log("user = " + checkuser);
-    const resultuser = usersJson.users.find(data => data.username === checkuser)
-    
-    const checkpass = document.getElementById("password").value;
-    console.log("pass = " + checkpass);
-    const resultpass = usersJson.users.find(data => data.password === checkpass)
+        const checkuser = document.getElementById("username").value;  
+        const checkpass = document.getElementById("password").value;
+        //หาใน users ว่าข้อมูลตรงกันไหม
+        const resultlogin = usersJson.users.find(data => data.username === checkuser && data.password === checkpass);
 
-    console.log("result = , " + resultuser, resultpass);
-    if (!resultuser || !resultpass) {
-        alert("Please fill username and password again.");
+        if (!resultlogin) {
+            alert("Please fill username and password again.");
+        } else {
+            // เก็บ username ใน localStorage
+            localStorage.setItem("loggedInUser", checkuser);
+            setTimeout(function(){
+                location.href = "./index.html";
+            }, 1050);
+        }
+    } catch (error) {
+        console.error("Error:", error);
     }
-    else(setTimeout(function(){
-        location.href = "./index.html"
-    }, 1050))
 }
+

@@ -5,63 +5,64 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Todo_List</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="js/app.js"></script>
         <link rel="stylesheet" href="css/app.css">
     </head>
     <body>
       <header>
+        
         <img src="https://cdn-icons-png.flaticon.com/128/5693/5693972.png" width="100px" height="100px" alt="Logo">
         <h1 class="title">Todo Application</h1>
         <button onclick="LogoutUser(event)">Log out</button>
-        <div id="username" class="username">Username : </div>
+        <div id="usernameDisplay" class="username">Username : </div>
       </header>
       <main>
-        <h1>&#9997; Task List</h1>
-        <div class="box-1">
-        <table cellpadding="10px" align="center">
-          <thead bgcolor="#b0bec5">
-          </colgroup>
-              <th>ID</th>
-              <th>User_ID</th>
-              <th>Content</th>
-              <th>Due_Date</th>
-              <th>Created_at</th>
-              <th>Updated_at</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>12</td>
-              <td>Test1</td>
-              <td>12/07/24</td>
-              <td>12/07/24</td>
-              <td>12/07/24</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>11</td>
-              <td>Test2</td>
-              <td>12/07/24</td>
-              <td>12/07/24</td>
-              <td>12/07/24</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>22</td>
-              <td>Test3</td>
-              <td>12/07/24</td>
-              <td>12/07/24</td>
-              <td>12/07/24</td>
-            </tr>
-          </tbody>
-        </table>
+        <form>
+          <h1>&#9997; Task List </h1>
+          <!-- Order modal -->
+        <div id="myModal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+              <span
+                  class="clickout"
+                  onclick="document.getElementById('myModal').style.display='none'"
+                  >&times;</span>
+              <div id="todo-modal-component"></div>
+          </div>
         </div>
+          <div id="todo-list"></div>
+
+          <!-- Popup หน้า Task List -->
+          <div class="pop-up">
+            <div class="pop-up-content" id="todo-list">
+              <img class="close" src="https://cdn-icons-png.flaticon.com/128/6276/6276642.png">
+              <label for="">Task_ID : </label>
+              <input type="number" min="1" name="ID" id="ID" placeholder="ID">
+              <br>
+              <div class="dropbtn" id="dropbtn" >User_ID : </div>
+                <button onclick="dropUserId()" placeholder="User_ID"></button>
+              <br>
+              <label for="">Task : </label>
+              <input type="text" name="taskinput" id="taskinput" placeholder="New Task Content">
+              <br>
+              <label for="">Due_Date : </label>
+              <input type="date" name="dateinput" id="dateinput">
+              <br>
+              <label for="">Created_at : </label>
+              <input type="date" name="datecreate" id="datecreate">
+              <br>
+              <button class="submitbtn" id="submitbtn" onclick="handleRegisterTodo(event)">Submit</button>
+            </button>
+          </div>
+        </form>
+        
+        
       </main>
+
       <footer>
-        <div id="mainField">
-        </div>
         <div class="icon-group">
-          <img id="deletePostIt" src="https://cdn-icons-png.flaticon.com/128/6711/6711543.png" width="110px" height="110px">
-          <img id="addPostIt()" src="https://cdn-icons-png.flaticon.com/128/11223/11223162.png" width="110px" height="110px">
+          <img id="post-it" class="post-it" onclick="addtask()" src="https://cdn-icons-png.flaticon.com/128/11223/11223162.png" width="110px" height="110px">
         </div>
       </footer>
 
@@ -70,5 +71,5 @@
         <div id="errorMessage"></div>
       </div>
     </body>
-    <script src="js/app.js"></script>
+    
 </html>

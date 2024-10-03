@@ -24,6 +24,7 @@ import java.util.List;
 public class TodoController {
     private final TodoService service;
 
+    /* ดึงข้อมูล todo */
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public TodoResponse getAll() {
@@ -32,7 +33,8 @@ public class TodoController {
         return response;
     }
 
-    @PostMapping(produces = "application/json")
+    /* สร้าง todo */
+    @PostMapping(value="/list", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody TodoRequest request) {
         ValidateResult validate = request.validate();
@@ -43,13 +45,15 @@ public class TodoController {
         service.createTodo(request.toTodoModel());
     }
 
-    @GetMapping(value = "/todoId", produces = "application/json")
+    /* ดึงข้อมูล todoId */
+    @GetMapping(value = "/{todoId}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public TodoModel get(@PathVariable int todoId) {
         return service.getTodoById(todoId);
     }
 
-    @PutMapping(value = "/todoId", produces = "application/json")
+    /* อัพเดท todoId */
+    @PutMapping(value = "/{todoId}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable int todoId,@RequestBody TodoRequest request) {
         ValidateResult validate = request.validate();
@@ -60,7 +64,8 @@ public class TodoController {
         service.updateTodo(request.toTodoModel(todoId));
     }
 
-    @DeleteMapping(value = "/todoId")
+    /* ลบ todoId */
+    @DeleteMapping(value = "/{todoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int todoId) {
         service.deleteTodo(todoId);

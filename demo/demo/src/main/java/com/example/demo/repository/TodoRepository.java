@@ -7,9 +7,9 @@ import java.util.List;
 public interface TodoRepository {
     List<TodoModel> getAllTodo();
 
-    void insertTodo(TodoModel Todo);
+    void insertTodo(TodoModel todo);
 
-    void updateTodo(TodoModel Todo);
+    void updateTodo(TodoModel todo);
 
     TodoModel getTodo(int id);
 

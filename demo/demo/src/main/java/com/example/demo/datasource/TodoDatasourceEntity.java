@@ -2,15 +2,16 @@ package com.example.demo.datasource;
 
 import com.example.demo.model.TodoModel;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 public class TodoDatasourceEntity {
-    public final int id;
-    public final int user_id;
-    public final String content;
-    public final LocalDate due_date;
-    public final LocalDate created_at;
-    public final LocalDate updated_at;
+    final int id;
+    final int user_id;
+    final String content;
+    final LocalDate due_date;
+    final Instant created_at;
+    final Instant updated_at;
 
     public static TodoDatasourceEntity of(TodoModel todo) {
         return new TodoDatasourceEntity(
@@ -23,7 +24,7 @@ public class TodoDatasourceEntity {
         );
     }
 
-    public TodoDatasourceEntity(int id, int user_id, String content, LocalDate due_date, LocalDate created_at, LocalDate updated_at) {
+    public TodoDatasourceEntity(int id, int user_id, String content, LocalDate due_date, Instant created_at, Instant updated_at) {
         this.id = id;
         this.user_id = user_id;
         this.content = content;

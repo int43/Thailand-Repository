@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
+import java.sql.Timestamp;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +21,7 @@ public class TodoDatasource implements TodoRepository {
 
     @Override
     public List<TodoModel> getAllTodo() {
-        String sql = "SELECT * FROM Todo";
+        String sql = "SELECT * FROM todo";
         List<Map<String, Object>> records = jdbcTemplate.queryForList(sql);
         return records.stream()
             .map(record -> toModel(record))
@@ -29,7 +31,7 @@ public class TodoDatasource implements TodoRepository {
     @Override
     public void insertTodo(TodoModel todo) {
         TodoDatasourceEntity entity = TodoDatasourceEntity.of(todo);
-        String sql = "INSERT INTO Todo(user_id, content, due_date, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO todo(user_id, content, due_date, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(
             sql,
             entity.user_id,
@@ -42,21 +44,20 @@ public class TodoDatasource implements TodoRepository {
     @Override
     public void updateTodo(TodoModel todo) {
         TodoDatasourceEntity entity = TodoDatasourceEntity.of(todo);
-        String sql = "UPDATE Todo SET user_id = ?, content = ?, due_date = ?, created_at = ?, updated_at = ? WHERE id = ?";
+        String sql = "UPDATE todo SET user_id = ?, content = ?, due_date = ?, created_at = ?, updated_at = ? WHERE id = ?";
         jdbcTemplate.update(
             sql,
             entity.user_id,
             entity.content,
             entity.due_date,
             entity.created_at,
-            entity.updated_at,
-            entity.id
+            entity.updated_at
         );
     }
 
     @Override
     public TodoModel getTodo(int id) {
-        String sql = "SELECT * FROM Todo WHERE id = ?";
+        String sql = "SELECT * FROM todo WHERE id = ?";
         List<Map<String, Object>> records = jdbcTemplate.queryForList(sql, id);
         if (records.isEmpty()) return TodoModel.empty();
         return toModel(records.get(0));
@@ -64,21 +65,21 @@ public class TodoDatasource implements TodoRepository {
 
     @Override
     public void deleteTodo(int id) {
-        String sql = "DELETE FROM Todo WHERE id = ?";
+        String sql = "DELETE FROM todo WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
 
     private TodoModel toModel(Map<String, Object> record) {
         Date due_date = (Date) record.get("due_date");
-        Date created_at = (Date) record.get("created_at");
-        Date updated_at = (Date) record.get("updated_at");
+        Timestamp created_at = (Timestamp) record.get("created_at");
+        Timestamp updated_at = (Timestamp) record.get("updated_at");
         return new TodoModel(
             (int) record.get("id"),
             (int) record.get("user_id"),
             (String) record.get("content"),
             due_date.toLocalDate(),
-            created_at.toLocalDate(),
-            updated_at.toLocalDate()
+            created_at.toInstant(),
+            updated_at.toInstant()
         );
     }
 }
