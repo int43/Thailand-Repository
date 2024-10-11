@@ -3,27 +3,24 @@ package com.example.demo.controller.todo.request;
 import com.example.demo.model.TodoModel;
 import com.example.demo.model.ValidateResult;
 
-import java.time.Instant;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class TodoRequest {
     public final Integer user_id;
     public final String content;
     public final String due_date;
-    public final String created_at;
-    public final String updated_at;
+    public final Timestamp created_at;
+    public final Timestamp updated_at;
 
     public ValidateResult validate() {
-        if(LocalDate.parse(due_date).isBefore(LocalDate.now()))
+        LocalDate Current = LocalDate.now();
+
+        if(LocalDate.parse(due_date).isBefore(Current))
             return ValidateResult.failed("due_date can't be in the past");
-
-        if(Instant.parse(created_at).isBefore(Instant.now()))
-            return ValidateResult.failed("created_at can't be in the past");
-
-        if(Instant.parse(updated_at).isBefore(Instant.now()))
-            return ValidateResult.failed("updated_at can't be in the past");
         
         return ValidateResult.success();
     }
@@ -36,10 +33,11 @@ public class TodoRequest {
         DateTimeFormatter formatdue = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate formatterdue = LocalDate.parse(due_date, formatdue);
 
-        Instant formattercreated = Instant.parse(created_at);
-        Instant formatterupdated = Instant.parse(updated_at);
-        
-        return new TodoModel(id, user_id, content, formatterdue, formattercreated, formatterupdated);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        LocalDateTime createdDateTime = created_at.toLocalDateTime();
+        LocalDateTime updatedDateTime = updated_at.toLocalDateTime();
+
+        return new TodoModel(id, user_id, content, formatterdue, createdDateTime, updatedDateTime);
     }
 
     public TodoRequest() {

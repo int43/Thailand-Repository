@@ -2,7 +2,7 @@ package com.example.demo.datasource;
 
 import com.example.demo.model.TodoModel;
 
-import java.time.Instant;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class TodoDatasourceEntity {
@@ -10,8 +10,8 @@ public class TodoDatasourceEntity {
     final int user_id;
     final String content;
     final LocalDate due_date;
-    final Instant created_at;
-    final Instant updated_at;
+    final Timestamp created_at;
+    final Timestamp updated_at;
 
     public static TodoDatasourceEntity of(TodoModel todo) {
         return new TodoDatasourceEntity(
@@ -24,7 +24,7 @@ public class TodoDatasourceEntity {
         );
     }
 
-    public TodoDatasourceEntity(int id, int user_id, String content, LocalDate due_date, Instant created_at, Instant updated_at) {
+    public TodoDatasourceEntity(int id, int user_id, String content, LocalDate due_date, Timestamp created_at, Timestamp updated_at) {
         this.id = id;
         this.user_id = user_id;
         this.content = content;

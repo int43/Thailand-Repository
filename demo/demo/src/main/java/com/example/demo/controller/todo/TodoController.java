@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -61,7 +64,9 @@ public class TodoController {
             throw new ResponseStatusException(
                 HttpStatus.BAD_REQUEST, validate.errorMessage());
         }
-        service.updateTodo(request.toTodoModel(todoId));
+        TodoModel todo = request.toTodoModel(todoId);
+
+        service.updateTodo(todo);
     }
 
     /* ลบ todoId */

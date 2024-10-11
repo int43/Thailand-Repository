@@ -38,8 +38,9 @@ function addtask() {
     document.querySelector(".submitbtn").addEventListener("click",function(){
         document.querySelector(".pop-up").style.display = "none";
     })
-}
-  
+} 
+
+// แสดงข้อมูลจาก database
 async function fetchTodo() {
     const todos = await fetch("http://localhost:8080/todo");
     if (!todos.ok) {
@@ -69,8 +70,8 @@ function renderTodo(todosJson) {
             <td>${todo.created_at}</td>
             <td>${todo.updated_at}</td>
             <td>
-            <button id="editbtn" onclick="renderTodo(${todo.id})">Edit</button>
-            <button id="deletebtn" onclick="handleDeleteTodo(${todo.id})">Delete</button>
+            <button type="button" id="editbtn" onclick="editTodo(${todo.id})">Edit</button>
+            <button type="button" id="deletebtn" onclick="handleDeleteTodo(${todo.id})">Delete</button>
             </td>
         </tr>
         `;
@@ -78,16 +79,57 @@ function renderTodo(todosJson) {
     });
 }
 
-/*async function handleRegisterTodo(event) {
+
+// เรียกใช้ข้อมูล user_id
+async function fetchUsers(defaultUserId) {
+    try {
+        const response = await fetch("http://localhost:8080/users");
+        if (!response.ok) {
+            throw new Error("Could not fetch users");
+        }
+        const data = await response.json(); // แปลง response เป็น json เก็บไว้ในตัวแปร data
+        const users = data.users; // ดึงข้อมูล users จาก data เก็บไว้ในตัวแปร users
+
+        // ตรวจสอบ users เป็น array ไหม
+        if (!Array.isArray(users)) {
+            throw new Error("Fetched data is not an array");
+        }
+
+        const dropdown = document.getElementById('userDropdown');
+        dropdown.innerHTML = ''; // Clear ข้อมูลใน dropdown เพื่อดูข้อมูลใหม่
+
+        // ใช้ foreach เพื่อวนลูปแต่ละ users สร้าง option ของแต่ละ user_id
+        users.forEach(user => {
+            const option = document.createElement('option');
+            option.value = user.user_id;
+            option.textContent = user.user_id; // ใช้ user.user_id แสดงข้อมูล user_id
+            dropdown.appendChild(option);   // เอา option ที่สร้างขึ้นไปยัง dropdown
+        });
+
+        // ตั้งค่า default ของ user_id
+        if (defaultUserId) {
+            dropdown.value  = defaultUserId; // แสดง default user_id ใน dropdown
+        }
+    } catch (error) {
+        console.error('Error fetching users:', error); //แสดงข้อมูลเกี่ยวกับ error ว่ามีอะไรผิดพลาด
+        const dropdown = document.getElementById('userDropdown');
+        dropdown.innerHTML = '<option value="">Error loading users</option>'; // clear เนื้อหาภายใน dropdown และเพิ่ม <option> ใหม่ที่แสดงข้อความ error, value="" หมายความว่าไม่มีค่าที่ถูกต้องใน dropdown ในกรณีนี้
+    }
+}
+
+
+// เพิ่มข้อมูลเข้า database
+async function handleRegisterTodo(event) {
     event.preventDefault();
     const form = event.target.form;
     const formData = new FormData(form);
     const todo = {
+        id: formData.get("id"),
         user_id: formData.get("user_id"),
         content: formData.get("content"),
         due_date: formData.get("due_date"),
-        created_at: formData.get("created_at"),
-        updated_at: formData.get("updated_at"),
+        created_at: new Date().toISOString(), 
+        updated_at: new Date().toISOString(),  
     };
     console.log(todo);
     const response = await fetch("http://localhost:8080/todo/list", {
@@ -102,9 +144,13 @@ function renderTodo(todosJson) {
         console.error(error);
         return;
     }
-}*/
+    fetchTodo();
+    await fetchUsers(todo.user_id);
+}
 
-async function fetchTodo(id) {
+
+// ดึงข้อมูลโดย Todo id
+async function takeTodo(id) {
     const response = await fetch(`http://localhost:8080/todo/${id}`);
     if (!response.ok) {
         throw new Error("Could not fetch todo");
@@ -112,29 +158,30 @@ async function fetchTodo(id) {
     return await response.json();
 }
 
-async function renderTodo(id) {
-    const todo = await fetchTodo(id);
+async function editTodo(id) {
+    const todo = await takeTodo(id);
     const todoDiv = document.getElementById("todo-modal-component");
     todoDiv.innerHTML = `
     <form>
-        <div> todo id: ${todo.id}</div>
-        <label for="user_id">User_id</label>
-        <input type="number" name="user_id" value="${todo.user_id}"/>
-        <label for="content">Name</label>
+        <div> todo : ${todo.id}</div><br>
+
+        <label for="user_id">User ID </label>
+        <select name="user_id" id="userDropdown">
+            <option value="${todo.user_id}">Select User</option>
+        </select><br>
+
+        <br><label for="content">Content</label><br>
         <input type="text" name="content" value="${todo.content}"/>
         <label for="due_date">Due_date</label>
         <input type="date" name="due_date" value="${todo.due_date}"/>
-        <label for="created_at">Created_at</label>
-        <input type="date" name="created_at" value="${todo.created_at}"/>
-        <label for="updated_at">Updated_at</label>
-        <input type="date" name="updated_at" value="${todo.updated_at}"/>
         <button type="submit" onclick="handleUpdateTodo(event, ${todo.id})">Update</button>
     </form>
     `;
     document.getElementById("myModal").style.display = "block";
+    await fetchUsers(todo.user_id);
 }
 
-/*async function handleUpdateTodo(event, id) {
+async function handleUpdateTodo(event, id) {
     event.preventDefault();
     const form = event.target.form;
     const formData = new FormData(form);
@@ -142,10 +189,10 @@ async function renderTodo(id) {
         user_id: formData.get("user_id"),
         content: formData.get("content"),
         due_date: formData.get("due_date"),
-        created_at: formData.get("created_at"),
-        updated_at: formData.get("updated_at"),
+        created_at: new Date(formData.get("created_at")).toISOString(), 
+        updated_at: new Date().toISOString(), 
     };
-
+    
     const response = await fetch(`http://localhost:8080/todo/${id}`, {
         method: "PUT",
         headers: {
@@ -156,12 +203,14 @@ async function renderTodo(id) {
 
     if (!response.ok) {
         const result = await response.json();
+        console.error("Error:", result);
         throw new Error(result.message);
     } else {
-        await fetchOrders();
+        await fetchTodo();
         document.getElementById("myModal").style.display = "none";
     }
-}*/
+}
+
 
 /*async function handleDeleteTodo(id) {
     const response = await fetch(`http://localhost:8080/todo/${id}`, {

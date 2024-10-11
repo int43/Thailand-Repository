@@ -139,30 +139,39 @@ body {
       opacity: 1;   /*ทึบแสงทั้งหมด*/
     }
   }
-  /* Style the modal background */
-  .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
-}
 
-.modal-content form input {
-    display: block;
+/* แสดงหน้า edit modal background */
+.modal {
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  
 }
-
-/* Style the modal content */
 .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+  height: 40%;
+  width: 40%;
+  background: #ffffff;
+  padding: 20px;
+  margin: 170px 300px;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 6px 6px 29px -4px rgb(0, 0, 0, 0.6);
+}
+
+.clickout {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  height: 40px;
+  box-shadow: 6px 6px 29px -4px rgb(0, 0, 0, 0.5);
+  cursor: pointer;
 }
 
 /* แสดงลูกเล่นหน้าเข้าสู่ TodoApplication */
@@ -224,8 +233,7 @@ body {
 }
 
 .pop-up {
-  background-color: grey;
-  opacity: 0.95;
+  background-color: rgba(0, 0, 0, 0.7);
   width: 100%;
   height: 100%;
   position: fixed;
@@ -238,8 +246,8 @@ body {
   
 }
 .pop-up-content {
-  height: 70%;
-  width: 60%;
+  height: 40%;
+  width: 40%;
   background: #ffffff;
   padding: 20px;
   border-radius: 10px;
@@ -272,8 +280,8 @@ input {
   cursor: pointer;
   position: absolute;
   margin: 3% auto;
-  bottom: 4%;
-  right: 42.5%;
+  bottom: 5%;
+  right: 38%;
 }
 
 #post-it {

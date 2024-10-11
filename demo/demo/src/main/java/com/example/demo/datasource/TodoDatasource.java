@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.time.Instant;
 import java.sql.Timestamp;
 import java.sql.Date;
 import java.util.List;
@@ -31,27 +30,28 @@ public class TodoDatasource implements TodoRepository {
     @Override
     public void insertTodo(TodoModel todo) {
         TodoDatasourceEntity entity = TodoDatasourceEntity.of(todo);
-        String sql = "INSERT INTO todo(user_id, content, due_date, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO todo(id, content, due_date, created_at) VALUES (?, ?, ?, ?)";
+        //อัพเดทได้แค่ตัวที่กำหนดตามด้านล่างนี้
         jdbcTemplate.update(
             sql,
-            entity.user_id,
+            entity.id,
             entity.content,
             entity.due_date,
-            entity.created_at,
-            entity.updated_at);
+            entity.created_at
+        );
     }
 
     @Override
     public void updateTodo(TodoModel todo) {
         TodoDatasourceEntity entity = TodoDatasourceEntity.of(todo);
-        String sql = "UPDATE todo SET user_id = ?, content = ?, due_date = ?, created_at = ?, updated_at = ? WHERE id = ?";
+        String sql = "UPDATE todo SET user_id = ?, content = ?, due_date = ?, updated_at = ? WHERE id = ?";
         jdbcTemplate.update(
             sql,
             entity.user_id,
             entity.content,
             entity.due_date,
-            entity.created_at,
-            entity.updated_at
+            entity.updated_at,
+            entity.id
         );
     }
 
@@ -78,8 +78,8 @@ public class TodoDatasource implements TodoRepository {
             (int) record.get("user_id"),
             (String) record.get("content"),
             due_date.toLocalDate(),
-            created_at.toInstant(),
-            updated_at.toInstant()
+            created_at.toLocalDateTime(),
+            updated_at.toLocalDateTime()
         );
     }
 }

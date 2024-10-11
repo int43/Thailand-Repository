@@ -20,14 +20,14 @@
       <main>
         <form>
           <h1>&#9997; Task List </h1>
+
           <!-- Order modal -->
         <div id="myModal" class="modal">
           <!-- Modal content -->
           <div class="modal-content">
-              <span
-                  class="clickout"
-                  onclick="document.getElementById('myModal').style.display='none'"
-                  >&times;</span>
+              <span onclick="document.getElementById('myModal').style.display='none'">
+                <img class="clickout" src="https://cdn-icons-png.flaticon.com/128/6276/6276642.png">
+              </span>
               <div id="todo-modal-component"></div>
           </div>
         </div>
@@ -38,20 +38,19 @@
             <div class="pop-up-content" id="todo-list">
               <img class="close" src="https://cdn-icons-png.flaticon.com/128/6276/6276642.png">
               <label for="">Task_ID : </label>
-              <input type="number" min="1" name="ID" id="ID" placeholder="ID">
-              <br>
-              <div class="dropbtn" id="dropbtn" >User_ID : </div>
-                <button onclick="dropUserId()" placeholder="User_ID"></button>
-              <br>
+              <input type="number" min="1" name="id" id="ID" placeholder="ID">
+            <br>
+              <label for="user_id">User ID : </label>
+              <select name="user_id" id="userDropdown">
+                <option value="${todo.user_id}">Select User</option>
+              </select><br>
+            <br>
               <label for="">Task : </label>
-              <input type="text" name="taskinput" id="taskinput" placeholder="New Task Content">
-              <br>
+              <input type="text" name="content" id="content" placeholder="New Task Content">
+            <br>
               <label for="">Due_Date : </label>
-              <input type="date" name="dateinput" id="dateinput">
-              <br>
-              <label for="">Created_at : </label>
-              <input type="date" name="datecreate" id="datecreate">
-              <br>
+              <input type="date" name="due_date" id="due_date">
+            <br>
               <button class="submitbtn" id="submitbtn" onclick="handleRegisterTodo(event)">Submit</button>
             </button>
           </div>
