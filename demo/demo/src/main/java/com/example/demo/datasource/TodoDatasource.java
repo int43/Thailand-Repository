@@ -30,14 +30,15 @@ public class TodoDatasource implements TodoRepository {
     @Override
     public void insertTodo(TodoModel todo) {
         TodoDatasourceEntity entity = TodoDatasourceEntity.of(todo);
-        String sql = "INSERT INTO todo(id, content, due_date, created_at) VALUES (?, ?, ?, ?)";
-        //อัพเดทได้แค่ตัวที่กำหนดตามด้านล่างนี้
+        String sql = "INSERT INTO todo(user_id, content, due_date, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
+        //เพิ่มได้แค่ตัวที่กำหนดตามด้านล่างนี้
         jdbcTemplate.update(
             sql,
-            entity.id,
+            entity.user_id,
             entity.content,
             entity.due_date,
-            entity.created_at
+            entity.created_at,
+            entity.updated_at
         );
     }
 

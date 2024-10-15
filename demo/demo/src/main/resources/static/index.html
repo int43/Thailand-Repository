@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Todo_List</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="js/func.js"></script>
         <script src="js/app.js"></script>
         <link rel="stylesheet" href="css/app.css">
     </head>
@@ -37,16 +38,9 @@
           <div class="pop-up">
             <div class="pop-up-content" id="todo-list">
               <img class="close" src="https://cdn-icons-png.flaticon.com/128/6276/6276642.png">
-              <label for="">Task_ID : </label>
-              <input type="number" min="1" name="id" id="ID" placeholder="ID">
             <br>
-              <label for="user_id">User ID : </label>
-              <select name="user_id" id="userDropdown">
-                <option value="${todo.user_id}">Select User</option>
-              </select><br>
-            <br>
-              <label for="">Task : </label>
-              <input type="text" name="content" id="content" placeholder="New Task Content">
+              <label for="content">Task Description</label><br>
+              <br><textarea type="text" name="content" value="${todo.content}"></textarea><br>
             <br>
               <label for="">Due_Date : </label>
               <input type="date" name="due_date" id="due_date">
@@ -54,9 +48,7 @@
               <button class="submitbtn" id="submitbtn" onclick="handleRegisterTodo(event)">Submit</button>
             </button>
           </div>
-        </form>
-        
-        
+        </form>      
       </main>
 
       <footer>

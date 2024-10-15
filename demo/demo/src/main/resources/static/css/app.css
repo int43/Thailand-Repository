@@ -213,14 +213,14 @@ body {
 } 
 
 #todo-list {
-  #editbtn {
-    text-decoration: none;
-    color: white;
-    background-color: green;
-    border-radius: 4px;
-    margin: 0px;
+  #duedate {
     cursor: pointer;
   }
+
+  #content {
+    cursor: pointer;
+  }
+
   #deletebtn {
     text-decoration: none;
     color: white;
