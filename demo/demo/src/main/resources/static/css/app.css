@@ -152,10 +152,10 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  
 }
+
 .modal-content {
-  height: 30%;
+  height: 35%;
   width: 40%;
   top: 6%;
   background: #ffffff;
@@ -214,15 +214,19 @@ body {
 } 
 
 #todo-list {
-  #duedate {
-    cursor: pointer;
-  }
-
-  #content {
+  #editbtn {
+    width: 68px;
+    text-decoration: none;
+    color: white;
+    background-color: #29b62e;
+    border-radius: 4px;
+    margin: 0px;
+    padding: 10px 15px;
     cursor: pointer;
   }
 
   #deletebtn {
+    width: 68px;
     text-decoration: none;
     color: white;
     background-color: red;
@@ -244,7 +248,7 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  
+
 }
 .pop-up-content {
   height: 30%;
@@ -273,7 +277,7 @@ input {
   cursor: pointer;
 }
 
-.submitbtn{
+.addbtn{
   text-decoration: none;
   color: white;
   background-color: #2c60ff;

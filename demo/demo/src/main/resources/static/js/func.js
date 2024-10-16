@@ -1,4 +1,4 @@
-//คำสั่ง $(document).ready เมื่อ load หน้าเสร็จจะเรียกใช้ฟังก์ชัน showUser(username),fetchTodo()
+//คำสั่ง $(document).ready เมื่อ load หน้าเสร็จจะเรียกใช้ฟังก์ชัน showUser(),fetchTodo()
 $(document).ready( function (){
     showUser();
     fetchTodo();
@@ -8,17 +8,17 @@ function LogoutUser(event) {
     event.preventDefault();
     if(confirm("Do you want to logout?")) {
         console.log("You press OK!");
-        localStorage.removeItem("loggedInUser"); 
+        localStorage.removeItem("loggedInUser");
         setTimeout(function(){
             location.href = "./login.html"
         }, 1050)
     } else {
-        console.log("You press Cancel!"); 
+        console.log("You press Cancel!");
     }
 }
 
 function showUser() {
-    //ดึงค่า "loggedInUser" จาก localStorage
+    //ดึงค่า "loggedInUser"(username) จาก localStorage
     const username = localStorage.getItem("loggedInUser");
     if (username) {
         document.getElementById("usernameDisplay").textContent = `Username : ${username}`;
@@ -35,7 +35,7 @@ function addtask() {
     document.getElementById("post-it").addEventListener("click",function(){
         document.querySelector(".pop-up").style.display = "flex";
     });
-    document.querySelector(".submitbtn").addEventListener("click",function(){
+    document.querySelector(".addbtn").addEventListener("click",function(){
         document.querySelector(".pop-up").style.display = "none";
     });
 } 

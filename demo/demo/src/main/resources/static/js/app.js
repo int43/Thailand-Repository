@@ -1,6 +1,6 @@
 // แสดงข้อมูลจาก database
 async function fetchTodo() {
-    const userId = localStorage.getItem("loggedInUserId");
+    const userId = localStorage.getItem("loggedInUserId");  // เก็บข้อมูล user_id จาก localStorage "loggedInUserId" ในตัวแปร userId 
     console.log(userId);
     if (!userId) {
         console.error("No user ID found.");
@@ -11,6 +11,8 @@ async function fetchTodo() {
         throw new Error("Could not fetch todos");
     }
     const todosJson = await response.json();
+
+    // ใช้ filter กรองเอาเฉพาะ user_id ที่ตรงกับ userId ที่เก็บไว้ก่อนหน้า (แปลงเป็น String เพื่อเปรียบเทียบ)
     const filteredTodos = todosJson.todos.filter(todo => todo.user_id.toString() === userId);
     console.log(filteredTodos);
     renderTodo(filteredTodos);
@@ -29,15 +31,16 @@ function renderTodo(todosJson) {
         todoDiv.innerHTML += `
         <tr>
             <td>${todo.id}</td>
-            <td id="duedate" onclick="editDueDate(${todo.id})">${todo.due_date}</td>
-            <td id="content" onclick="editContent(${todo.id})">${todo.content}</td>
+            <td id="duedate">${todo.due_date}</td>
+            <td id="content">${todo.content}</td>
             <td>${todo.created_at}</td>
             <td>
+            <button type="button" id="editbtn" onclick="editTodo(${todo.id})">Edit</button>
             <button type="button" id="deletebtn" onclick="handleDeleteTodo(${todo.id})">Delete</button>
             </td>
         </tr>
         `;
-        todos.appendChild(todoDiv);
+        todos.appendChild(todoDiv);     // เพิ่ม todoDiv เข้าไปใน todos
     });
 }
 
@@ -66,18 +69,19 @@ async function handleRegisterTodo(event) {
     if (!response.ok) {
         const error = await response.json();
         console.error(error);
-        // กำหนดข้อความเตือนที่ต้องการแสดง
-        let alertMessage = " Due_Date can't be in the past ";
-    
-        // คุณสามารถตรวจสอบรหัสสถานะหรือเนื้อหาจาก error เพื่อปรับข้อความที่จะแสดง
+        
+        const alertMessage = " Due_Date can't be in the past ";   // กำหนดข้อความเตือนที่ต้องการแสดง
+        // ตรวจสอบข้อมูล error เพื่อปรับข้อความที่จะแสดง
         if (error.code) {
-            alertMessage += `Error: ${error.code}`;
+            alertMessage += `Error: ${error.code}`;     // นำค่า alertMessage รวมกับค่า Error: ..code..
         }
         alert(alertMessage); // แสดงข้อความเตือน
-            return;
+        form.reset();   //ค่าที่กรอกจะว่างเปล่า
+        return;
         }
     else {
         await fetchTodo();
+        form.reset();   //ค่าที่กรอกจะว่างเปล่า
     }
 }
 
@@ -92,49 +96,21 @@ async function takeTodo(id) {
 }
 
 // ส่วนของ edit เอาข้อมูลโดยใช้ id
-async function editDueDate(id) {
+async function editTodo(id) {
     const todo = await takeTodo(id);
     const todoDiv = document.getElementById("todo-modal-component");
     todoDiv.innerHTML = `
-    <form id="editduedate" style="padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
-        <div style="font-weight: bold; margin-top: 30px; margin-bottom: 45px;">Todo ID: ${todo.id}</div>
-        <label for="due_date" style="display: block; margin-bottom: 25px;">Due Date</label>
-        <input 
-            type="date" 
-            id="due_date" 
-            name="due_date" 
-            value="${todo.due_date}" 
-            style="width: 30%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 10px;"
-        />
-        <button 
-            onclick="handleUpdateTodo(event, ${todo.id})"
-            id="updateduedate" 
-            type="submit" 
-            style="padding: 10px 15px; margin-top: 25px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;"
-        > Update </button>
-    </form>
-    `;
-    document.getElementById("myModal").style.display = "block";
-}
+    <form id="edit">
+        <div style="font-weight: bold; margin-top: 30px; margin-bottom: 30px;">Task ID: ${todo.id}</div>
 
-async function editContent(id) {
-    const todo = await takeTodo(id);
-    const todoDiv = document.getElementById("todo-modal-component");
-    todoDiv.innerHTML = `
-    <form id="editcontent" style="padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
-        <div style="font-weight: bold; margin-top: 30px; margin-bottom: 45px;">Todo ID: ${todo.id}</div>
+        <label for="due_date" style="display: block; margin-bottom: 20px;">Due_Date</label>
+        <input type="date" id="due_date" name="due_date" value="${todo.due_date}" />
+
         <label for="content" style="display: block; margin-bottom: 20px;">Task Description</label>
-        <textarea 
-            id="content" 
-            name="content" 
-            rows="3" 
-            style="width: 60%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 10px;"
-        >${todo.content}</textarea>
-        <br><button 
-            onclick="handleUpdateTodo(event, ${todo.id})"
-            id="updatecontent"           
-            type="submit" 
-            style="padding: 10px 15px; margin-top: 20px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;"
+        <textarea id="content" name="content" style="width:40%;" rows="3">${todo.content}</textarea><br>
+
+        <button type="submit" id="update" onclick="handleUpdateTodo(event, ${todo.id})"
+        style="padding: 10px 15px; margin-top: 20px; background-color: #2c60ff; color: white; border: none; border-radius: 4px; cursor: pointer;" 
         > Update </button>
     </form>
     `;
@@ -174,10 +150,8 @@ async function handleUpdateTodo(event, id) {
         const result = await response.json();
         console.error("Error:", result);
 
-        // กำหนดข้อความเตือนที่ต้องการแสดง
-        let alertMessage = " Due_Date can't be in the past ";
-    
-        // คุณสามารถตรวจสอบรหัสสถานะหรือเนื้อหาจาก error เพื่อปรับข้อความที่จะแสดง
+        const alertMessage = " Due_Date can't be in the past ";   // กำหนดข้อความเตือนที่ต้องการแสดง
+        // ตรวจสอบข้อมูล error เพื่อปรับข้อความที่จะแสดง
         if (result.code) {
             alertMessage += `Error: ${error.code}`;
         }
@@ -190,12 +164,19 @@ async function handleUpdateTodo(event, id) {
 }
 
 
-/*async function handleDeleteTodo(id) {
-    const response = await fetch(`http://localhost:8080/todo/${id}`, {
-        method: "DELETE",
-    });
-    if (!response.ok) {
-        throw new Error("Could not delete todo");
-    }
-    await fetchTodo();
-}*/
+async function handleDeleteTodo(id) {
+    if(confirm("Do you want to delete?")) {
+        console.log("You press OK!");
+        const response = await fetch(`http://localhost:8080/todo/${id}`, {
+            method: "DELETE",
+        });
+        
+        if (!response.ok) {
+            throw new Error("Could not delete todo");
+        }
+        await fetchTodo();
+    
+    } else {
+        console.log("You press Cancel!");
+    };
+}

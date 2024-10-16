@@ -17,7 +17,7 @@ async function LoginUser(event) {
         if (!resultlogin) {
             alert("Please fill username and password again.");
         } else {
-            // เก็บ username ใน localStorage
+            // เก็บ username และ user_id ใน localStorage
             localStorage.setItem("loggedInUser", checkuser);
             localStorage.setItem("loggedInUserId", resultlogin.user_id);
             console.log(resultlogin);
