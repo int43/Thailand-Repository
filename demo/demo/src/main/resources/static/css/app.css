@@ -152,15 +152,17 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
+  z-index: 1000;    /* ให้แน่ใจว่าแสดงอยู่ข้างบน */
 }
 
 .modal-content {
-  height: 35%;
+  height: auto;     /* ปรับความสูงตามเนื้อหา */
   width: 40%;
-  top: 6%;
+  top: 41%;
+  left: 50%;
+  transform: translate(-50%, -50%);   /* ย้ายกลับครึ่งหนึ่ง */
   background: #ffffff;
   padding: 20px;
-  margin: 170px 300px;
   border-radius: 10px;
   position: relative;
   box-shadow: 6px 6px 29px -4px rgb(0, 0, 0, 0.6);
@@ -248,10 +250,11 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
+  z-index: 1000; /* ให้แน่ใจว่าแสดงอยู่ข้างบน */
 
 }
 .pop-up-content {
-  height: 30%;
+  height: auto;
   width: 40%;
   top: -10%;
   background: #ffffff;
@@ -289,5 +292,40 @@ input {
 }
 
 #post-it {
+  cursor: pointer;
+}
+
+.warning {
+  display: none; /* ซ่อนเริ่มต้น */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); /* สีพื้นหลังโปร่งใส */
+}
+
+.warning-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* กว้าง 80% */
+  max-width: 400px; /* สูงสุด 400px */
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
   cursor: pointer;
 }

@@ -21,6 +21,7 @@ async function LoginUser(event) {
             localStorage.setItem("loggedInUser", checkuser);
             localStorage.setItem("loggedInUserId", resultlogin.user_id);
             console.log(resultlogin);
+            
             setTimeout(function(){
                 location.href = "./index.html";
             }, 1050);

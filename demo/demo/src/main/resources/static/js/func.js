@@ -2,6 +2,12 @@
 $(document).ready( function (){
     showUser();
     fetchTodo();
+    resetTimeout(); // เริ่มต้น timer
+
+    // ตรวจสอบการใช้งานของผู้ใช้
+    window.addEventListener("mousemove", resetTimeout);
+    window.addEventListener("keydown", resetTimeout);
+    window.addEventListener("click", resetTimeout);
 });
 
 function LogoutUser(event) {
@@ -39,3 +45,46 @@ function addtask() {
         document.querySelector(".pop-up").style.display = "none";
     });
 } 
+
+const timeoutDuration = 2 * 60 * 60 * 1000; // ระยะเวลาที่ผู้ใช้สามารถไม่มีการเคลื่อนไหวก่อนที่จะถูกล็อกเอ้าท์โดยอัตโนมัติ 2 ชม
+const warningDuration = 1 * 60 * 1000; // มีการแจ้งเตือนเมื่อไม่ได้ใช้งานนาน 1 นาที
+let timeout;
+let warningTimeout;
+let hasShownWarning = false; // ตัวแปรตรวจสอบว่าได้แสดง alert แล้ว
+
+function resetTimeout() {
+    clearTimeout(timeout);          // ยกเลิก timer ล็อกเอ้าท์
+    clearTimeout(warningTimeout);   // ยกเลิก timer แจ้งเตือน
+    hasShownWarning = false; // รีเซ็ตตัวแปรเมื่อมีการใช้งาน
+    timeout = setTimeout(showWarning, timeoutDuration);      // ถ้าผู้ใช้ไม่มีการเคลื่อนไหวในช่วงเวลา timeoutDuration ระบบจะล็อกเอ้าท์ผู้ใช้
+}
+
+function showWarning() {
+    if (!hasShownWarning) {
+        document.getElementById("warningModal").style.display = "block"; // แสดง Popup
+        hasShownWarning = true;
+
+        // เริ่ม timer สำหรับการล็อกเอ้าท์ 2 นาที
+        warningTimeout = setTimeout(logout, warningDuration); // เก็บ timeout สำหรับล็อกเอ้าท์
+
+        // เพิ่มเหตุการณ์เมื่อกดปุ่ม "ยกเลิก"
+        document.getElementById("cancelLogout").onclick = function() {
+            closeWarning(); // ปิด Popup
+            clearTimeout(warningTimeout); // ยกเลิก timer สำหรับการล็อกเอ้าท์
+            resetTimeout(); // รีเซ็ต timer
+        };
+    }
+}
+
+
+function closeWarning() {
+    document.getElementById("warningModal").style.display = "none"; // ซ่อน Popup
+}
+
+
+function logout() {
+    localStorage.removeItem("loggedInUser");
+    localStorage.removeItem("loggedInUserId");
+    alert("คุณถูกล็อกเอ้าท์เนื่องจากไม่มีการเคลื่อนไหว");
+    location.href = "./login.html";
+}
