@@ -152,7 +152,7 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  z-index: 1000;    /* ให้แน่ใจว่าแสดงอยู่ข้างบน */
+  z-index: 1000;    /* แสดงตำแหน่งอยู่ชั้นบนๆ */
 }
 
 .modal-content {
@@ -160,7 +160,7 @@ body {
   width: 40%;
   top: 41%;
   left: 50%;
-  transform: translate(-50%, -50%);   /* ย้ายกลับครึ่งหนึ่ง */
+  transform: translate(-50%, -50%);   /* ย้ายตำแหน่งกล่อง update กลับครึ่งหนึ่ง */
   background: #ffffff;
   padding: 20px;
   border-radius: 10px;
@@ -196,7 +196,7 @@ body {
     border-radius: 100%;
     animation: sk-scaleout 1.0s infinite ease-in-out;
   }*/
-  
+   
   /* ローディングアニメーション */
   @keyframes sk-scaleout {
     0% {
@@ -250,7 +250,7 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  z-index: 1000; /* ให้แน่ใจว่าแสดงอยู่ข้างบน */
+  z-index: 1000; /* แสดงตำแหน่งอยู่ชั้นบนๆ */
 
 }
 .pop-up-content {

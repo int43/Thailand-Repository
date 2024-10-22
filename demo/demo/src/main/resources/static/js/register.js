@@ -33,7 +33,6 @@ async function handleRegisterUser(event) {
         
 }
 
-
 async function checkSameUser(username, password) {
     try {
         const response = await fetch("http://localhost:8080/users");
