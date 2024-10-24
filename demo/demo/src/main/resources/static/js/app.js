@@ -28,12 +28,13 @@ function renderTodo(todosJson) {
     todoDiv.innerHTML =
     "<th>Task ID</th><th>Due_date</th><th>Task Description</th><th>Registration Date</th>";
     todosJson.forEach((todo) => {
+        const createdAt = new Date(todo.created_at).toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
         todoDiv.innerHTML += `
         <tr>
             <td>${todo.id}</td>
             <td id="duedate">${todo.due_date}</td>
             <td id="content">${todo.content}</td>
-            <td>${todo.created_at}</td>
+            <td>${createdAt}</td>
             <td>
             <button type="button" id="editbtn" onclick="editTodo(${todo.id})">Edit</button>
             <button type="button" id="deletebtn" onclick="handleDeleteTodo(${todo.id})">Delete</button>
@@ -55,33 +56,34 @@ async function handleRegisterTodo(event) {
         user_id: userId,
         content: formData.get("content"),
         due_date: formData.get("due_date"),
-        created_at: new Date().toISOString(), 
-        updated_at: new Date().toISOString(),  
+        created_at: new Date(), 
+        updated_at: new Date(),   
     };
     console.log(todo)
-    const response = await fetch("http://localhost:8080/todo/list", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(todo),
-    });
-    if (!response.ok) {
-        const error = await response.json();
-        console.error(error);
-        
-        const alertMessage = " Due_Date can't be in the past ";   // กำหนดข้อความเตือนที่ต้องการแสดง
-        // ตรวจสอบข้อมูล error เพื่อปรับข้อความที่จะแสดง
-        if (error.code) {
-            alertMessage += `Error: ${error.code}`;     // นำค่า alertMessage รวมกับค่า Error: ..code..
+    try {
+        const response = await fetch("http://localhost:8080/todo/list", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(todo),
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            console.log('Error from server : ',error);
+            const alertMessage = error.message || "Error to record Todo-List"; // ใช้ข้อความจากเซิร์ฟเวอร์ถ้ามี
+            alert(alertMessage); // แสดงข้อความเตือน
+            form.reset(); // เคลียร์ฟอร์ม
+            return;
         }
-        alert(alertMessage); // แสดงข้อความเตือน
-        form.reset();   //ค่าที่กรอกจะว่างเปล่า
-        return;
-        }
-    else {
+
         await fetchTodo();
-        form.reset();   //ค่าที่กรอกจะว่างเปล่า
+        form.reset(); // เคลียร์ฟอร์ม
+
+    } catch (error) {
+        console.error("Fetch error:", error);
+        alert("เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์");
     }
 }
 
@@ -134,8 +136,8 @@ async function handleUpdateTodo(event, id) {
         user_id: userId,
         content: updatedContent !== "" ? updatedContent : todo.content,     // ถ้า content เปลี่ยน ให้ใช้ค่าใหม่ ถ้าไม่ ให้ใช้ค่าเดิม
         due_date: updatedDueDate !== "" ? updatedDueDate : todo.due_date,   // ถ้า due_date เปลี่ยน ให้ใช้ค่าใหม่ ถ้าไม่ ให้ใช้ค่าเดิม
-        created_at: new Date(formData.get("created_at")).toISOString(), 
-        updated_at: new Date().toISOString(), 
+        created_at: new Date(), 
+        updated_at: new Date(), 
     };
     console.log(updatedTodo);
     const response = await fetch(`http://localhost:8080/todo/${id}`, {

@@ -12,7 +12,7 @@ $(document).ready( function (){
     */
     const events = ["mousemove", "keydown", "click"]; 
     events.forEach(event => {
-        window.addEventListener(event, resetTimeout);
+        window.addEventListener(event, resetTimeout);})
 });
 
 function LogoutUser(event) {
