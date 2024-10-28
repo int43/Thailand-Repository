@@ -1,57 +1,131 @@
-body{
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+body {
+    font-family: 'Cambria', 'Cochin', 'Georgia', 'Times', 'Times New Roman', serif;
     background-color: rgb(233, 233, 233);
-    max-width: 30%;
-    max-height: 30%;
-    margin-left: 35%;
-    margin-top: 3%;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed; top: 20%; right: 40%;
+    height: 100vh;
+    margin: 0;
 }
-form{
-    height: 600px;
+
+form {
+    width: 350px; 
+    height: auto;
     border: 1px solid white;
     border-radius: 20px;
     text-align: center;
-    background-color: white;
+    background-color: #f4f4f4;
     color: black;
-    margin: 8%;
-}
-header{
-    margin-top: 30px;
-    margin-bottom: 10px;
-}
-main{
-    margin-top: 5%;
-    h2{
-        color: #848484;
-    }
-    div{
-        padding-left: 15px;
-        margin: 30px 50px 20px 8px;
-        display: flex;
-    }
-    img{
-        margin: -5px 20px 1px 1px;
-    }
-    .loginbtn{
-        text-decoration: none;
-        color: white;
-        background-color: #3366FF;
-        border-radius: 3px;
-        padding: 13px 40px;
-        cursor: pointer;
-    }
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
 }
 
-footer{
-    font-size: large;
-    margin-bottom: 10%;
-    a{
-        color: blue;
-        padding: 10px;
-        margin-left: 20px;
+/* แสดงลูกเล่นหน้าเข้าสู่ TodoApplication */
+/* หน้าจอ load */
+#loading {
+    width: 100vw;
+    height: 100vh;
+    transition: all 1s;
+    background-color: #0bd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+  }
+  /* อนิเมชันวงกลม */
+  .spinner {
+    width: 100px;
+    height: 100px;
+    margin: 200px auto;
+    background-color: #fff;
+    border-radius: 100%;
+    animation: sk-scaleout 1.0s infinite ease-in-out; /* เรียกใช้ใช้อนิเมชันชื่อว่า sk-scaleout เพื่อให้มันขยายและหดตัว */
+  }
+   
+  /* ローディングアニメーション */
+  @keyframes sk-scaleout {
+    0% {
+      transform: scale(0);    /* เริ่มต้นที่ขนาด 0 */
+    } 100% {
+      transform: scale(1.0);  /* ขยายจนเต็มขนาด */
+      opacity: 0;   /* ทำให้โปร่งใส */
     }
+  }
+
+  .loaded {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+ #mainField {
+  position: relative;
+} 
+
+header {
+    margin: 20px 0;
+}
+
+main {
+    margin-top: 10px;
+}
+
+main h2 {
+    color: #757575;
+    font-size: 24px;
+    margin: 15px 0;
+}
+
+main div {
+    padding: 10px 0;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main img {
+    margin-right: 10px;
+    max-width: 50px;
+    border-radius: 10px; 
+}
+
+input {
+    padding: 5px;
+    margin: 5px;
+    height: 30px;
+    width: 60%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box; /* ทำให้การวัดรวม padding และ border */
+}
+
+.loginbtn {
+    text-decoration: none;
+    color: white;
+    background-color: #007BFF;
+    border-radius: 5px;
+    padding: 15px 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.loginbtn:hover {
+    background-color: #0056b3; /* สีน้ำเงินเข้มขึ้นเมื่อเลื่อนเมาส์ */
+}
+
+footer {
+    font-size: large;
+    margin-top: 20px;
+    text-align: center;
+}
+
+footer a {
+    color: blue;
+    padding: 10px;
+    margin-left: 20px;
+    transition: color 0.3s ease; /* เพิ่มการเปลี่ยนสีอย่างเรียบเนียนเมื่อเลื่อนเมาส์ไปที่ลิงก์ */
+}
+
+footer a:hover {
+    color: #0056b3; /* เปลี่ยนสีเมื่อเลื่อนเมาส์ */
 }

@@ -29,8 +29,7 @@ async function handleRegisterUser(event) {
         const error = await response.json();
         console.error(error);
         return;
-    }
-        
+    }  
 }
 
 async function checkSameUser(username, password) {
@@ -46,4 +45,10 @@ async function checkSameUser(username, password) {
         console.error("Error:", error);
         return false;
     }
+}
+
+function redirectToLogin() {
+    setTimeout(function() {
+        window.location.href = 'login.html';
+    },1000); // 1000 มิลลิวินาที (1 วินาที)
 }

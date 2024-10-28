@@ -40,11 +40,11 @@
             <div class="pop-up-content" id="todo-list">
               <img class="close" src="https://cdn-icons-png.flaticon.com/128/6276/6276642.png">
             <br>
-              <label for="content">Task Description</label><br>
-              <br><textarea type="text" name="content" value="${todo.content}"></textarea><br>
-            <br>
               <label for="">Due_Date : </label>
               <input type="date" name="due_date" id="due_date">
+            <br>
+              <label for="content">Task Description</label><br>
+              <br><textarea type="text" name="content" style="width:35%;" rows="3" value="${todo.content}"></textarea><br>
             <br>
               <button class="addbtn" id="addbtn" onclick="handleRegisterTodo(event)">Add Task</button>
           </div>
@@ -57,7 +57,7 @@
         </div>
       </footer>
 
-      <div id="loading">
+      <div id="loading" style="display: none;">
         <div class="spinner"></div>
         <div id="errorMessage"></div>
       </div>

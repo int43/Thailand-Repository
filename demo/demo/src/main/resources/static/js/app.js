@@ -5,17 +5,20 @@ async function fetchTodo() {
     if (!userId) {
         console.error("No user ID found.");
         return;
-    }
-    const response = await fetch("http://localhost:8080/todo");
-    if (!response.ok) {
-        throw new Error("Could not fetch todos");
-    }
-    const todosJson = await response.json();
+    } try {
+        const response = await fetch("http://localhost:8080/todo");
+        if (!response.ok) {
+            throw new Error("Could not fetch todos");
+        }
+        const todosJson = await response.json();
 
-    // ใช้ filter กรองเอาเฉพาะ user_id ที่ตรงกับ userId ที่เก็บไว้ก่อนหน้า (แปลงเป็น String เพื่อเปรียบเทียบ)
-    const filteredTodos = todosJson.todos.filter(todo => todo.user_id.toString() === userId);
-    console.log(filteredTodos);
-    renderTodo(filteredTodos);
+        // ใช้ filter กรองเอาเฉพาะ user_id ที่ตรงกับ userId ที่เก็บไว้ก่อนหน้า (แปลงเป็น String เพื่อเปรียบเทียบ)
+        const filteredTodos = todosJson.todos.filter(todo => todo.user_id.toString() === userId);
+        console.log(filteredTodos);
+        renderTodo(filteredTodos);
+    } catch (error) {
+        console.error("Fetch error:", error);
+    }
 }
 
 function renderTodo(todosJson) {
@@ -29,10 +32,11 @@ function renderTodo(todosJson) {
     "<th>Task ID</th><th>Due_date</th><th>Task Description</th><th>Registration Date</th>";
     todosJson.forEach((todo) => {
         const createdAt = new Date(todo.created_at).toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
+        const dueDate = new Date(todo.due_date).toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok' });
         todoDiv.innerHTML += `
         <tr>
             <td>${todo.id}</td>
-            <td id="duedate">${todo.due_date}</td>
+            <td id="duedate">${dueDate}</td>
             <td id="content">${todo.content}</td>
             <td>${createdAt}</td>
             <td>
@@ -83,7 +87,7 @@ async function handleRegisterTodo(event) {
 
     } catch (error) {
         console.error("Fetch error:", error);
-        alert("เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์");
+        alert("Have error to connect the server");
     }
 }
 
@@ -109,7 +113,7 @@ async function editTodo(id) {
         <input type="date" id="due_date" name="due_date" value="${todo.due_date}" />
 
         <label for="content" style="display: block; margin-bottom: 20px;">Task Description</label>
-        <textarea id="content" name="content" style="width:40%;" rows="3">${todo.content}</textarea><br>
+        <textarea id="content" name="content" style="width:35%;" rows="3">${todo.content}</textarea><br>
 
         <button type="submit" id="update" onclick="handleUpdateTodo(event, ${todo.id})"
         style="padding: 10px 15px; margin-top: 20px; background-color: #2c60ff; color: white; border: none; border-radius: 4px; cursor: pointer;" 
