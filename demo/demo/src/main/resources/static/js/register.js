@@ -13,7 +13,7 @@ async function handleRegisterUser(event) {
     }
     console.log(user);
     //ส่ง POST request ไปยัง server เพื่อสร้าง user ใหม่
-    const response = await fetch("http://localhost:8080/users/register", {
+    const response = await fetch("http://192.168.56.104:8080/users/register", {
         method: "POST",     //ส่งข้อมูลสร้าง user
         headers: {
             "Content-Type": "application/json",
@@ -34,7 +34,7 @@ async function handleRegisterUser(event) {
 
 async function checkSameUser(username, password) {
     try {
-        const response = await fetch("http://localhost:8080/users");
+        const response = await fetch("http://192.168.56.104:8080/users");
         if (!response.ok) {
             throw new Error("Could not fetch users");
         }

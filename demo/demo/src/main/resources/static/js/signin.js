@@ -7,7 +7,7 @@ async function LoginUser(event) {
     //ใช้ try catch ดัก error ง่ายขึ้น 
     try {
         //fetch ข้อมูล user จาก url ถ้าสำเร็จแสดงในรูป json
-        const response = await fetch("http://localhost:8080/users");
+        const response = await fetch("http://192.168.56.104:8080/users");
         if (!response.ok) {
             throw new Error("Could not fetch users");
         }

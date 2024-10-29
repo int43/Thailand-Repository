@@ -6,7 +6,7 @@ async function fetchTodo() {
         console.error("No user ID found.");
         return;
     } try {
-        const response = await fetch("http://localhost:8080/todo");
+        const response = await fetch("http://192.168.56.104:8080/todo");
         if (!response.ok) {
             throw new Error("Could not fetch todos");
         }
@@ -65,7 +65,7 @@ async function handleRegisterTodo(event) {
     };
     console.log(todo)
     try {
-        const response = await fetch("http://localhost:8080/todo/list", {
+        const response = await fetch("http://192.168.56.104:8080/todo/list", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -94,7 +94,7 @@ async function handleRegisterTodo(event) {
 
 // ดึงข้อมูลโดย Todo id
 async function takeTodo(id) {
-    const response = await fetch(`http://localhost:8080/todo/${id}`);
+    const response = await fetch(`http://192.168.56.104:8080/todo/${id}`);
     if (!response.ok) {
         throw new Error("Could not fetch todo");
     }
@@ -144,7 +144,7 @@ async function handleUpdateTodo(event, id) {
         updated_at: new Date(), 
     };
     console.log(updatedTodo);
-    const response = await fetch(`http://localhost:8080/todo/${id}`, {
+    const response = await fetch(`http://192.168.56.104:8080/todo/${id}`, {
         method: "PUT",
         headers: {
         "Content-Type": "application/json",
@@ -173,7 +173,7 @@ async function handleUpdateTodo(event, id) {
 async function handleDeleteTodo(id) {
     if(confirm("Do you want to delete?")) {
         console.log("You press OK!");
-        const response = await fetch(`http://localhost:8080/todo/${id}`, {
+        const response = await fetch(`http://192.168.56.104:8080/todo/${id}`, {
             method: "DELETE",
         });
         
